@@ -26,4 +26,8 @@ public class NewsService {
 		return newsRepository.findByPublishedAtStartingWith(publishedAt);
 	}
 
+	public List<NewsArticle> getAllNews() {
+		return newsRepository.findAll();
+	}
+
 }

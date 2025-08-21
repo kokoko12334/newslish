@@ -16,6 +16,9 @@ public class NewsServiceTest {
 	@Autowired
 	private NewsService newsService;
 
+	@Autowired
+	private DebugService debugService;
+
 
 	@Test
 	void testGetNewsUrl() {
@@ -32,6 +35,17 @@ public class NewsServiceTest {
 	}
 
 
+	@Test
+	void tetGetAllNews() {
+
+		// List<NewsArticle> allNews = newsService.getAllNews();
+		//
+		// for (NewsArticle newsArticle : allNews) {
+		// 	System.out.println(newsArticle.getTitle());
+		// }
+		// debugService.printOneContent();
+		debugService.checkQuizFields();
+	}
 
 	@Test
 	void testGetNewsByPublishedAt() {

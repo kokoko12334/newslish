@@ -19,7 +19,6 @@ public class NewsController {
 
 	@GetMapping
 	public NewsArticle getNewsByUrl(@RequestParam("url") String url) {
-		System.out.println(url);
 		return newsService.getNewsByUrl(url);
 	}
 
