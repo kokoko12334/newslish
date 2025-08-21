@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: newslish
+
+  config:
+    import: "optional:file:.env[.properties]"
+
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/mydb
+    username: mydbid
+    password: mydbpw
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    database-platform: org.hibernate.dialect.MariaDBDialect
+
+
+  data:
+    mongodb:
+      uri: mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@news-0.begqhne.mongodb.net/?retryWrites=true&w=majority&appName=news-0
+      database: ${MONGODB_DATABASE}
