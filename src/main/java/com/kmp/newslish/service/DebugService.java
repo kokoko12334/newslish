@@ -19,8 +19,12 @@ public class DebugService {
 		Document doc = mongoTemplate.getCollection("contents")
 			.find()
 			.first();
+
 		if (doc != null) {
-			System.out.println(doc);
+			Object publishedAt = doc.get("publishedAt");
+			System.out.println("Full Document: " + doc.toJson());
+			System.out.println("publishedAt field: " + publishedAt + " (type: "
+				+ (publishedAt != null ? publishedAt.getClass().getName() : "null") + ")");
 		} else {
 			System.out.println("No document found in contents collection");
 		}
@@ -56,5 +60,15 @@ public class DebugService {
 
 	private boolean isArray(Object obj) {
 		return obj instanceof List;
+	}
+
+
+	public void update() {
+		mongoTemplate.getDb()
+			.getCollection("contents")
+			.updateMany(
+				new org.bson.Document(), // 조건 없음 (전체 문서)
+				org.bson.Document.parse("{ $set: { publishedAt: { $toDate: \"$publishedAt\" } } }")
+			);
 	}
 }

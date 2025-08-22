@@ -1,5 +1,7 @@
 package com.kmp.newslish.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,9 +19,15 @@ public class NewsController {
 
 	private final NewsService newsService;
 
-	@GetMapping
+	@GetMapping("/by-url")
 	public NewsArticle getNewsByUrl(@RequestParam("url") String url) {
 		return newsService.getNewsByUrl(url);
+	}
+
+	@GetMapping("/by-date")
+	public List<NewsArticle> getNewsByDate(@RequestParam("startDate") String startDate,
+		@RequestParam("endDate") String endDate) {
+		return newsService.getAllNewsByDate(startDate, endDate);
 	}
 
 }

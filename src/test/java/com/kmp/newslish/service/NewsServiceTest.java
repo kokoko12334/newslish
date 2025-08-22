@@ -1,6 +1,12 @@
 package com.kmp.newslish.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -23,42 +29,26 @@ public class NewsServiceTest {
 	@Test
 	void testGetNewsUrl() {
 		//given
-		String url = "https://www.npr.org/2025/08/15/nx-s1-5500523/when-our-inflation-infeelings-dont-match-the-cpi";
+		String url = "https://apnews.com/article/microsoft-azure-gaza-israel-protests-49a0dd5905a1cf16eb3e19a98ca17d50";
 
 		//when
 		NewsArticle newsByUrl = newsService.getNewsByUrl(url);
 
 		//then
-		Assertions.assertEquals("When our inflation infeelings don’t match the CPI : Planet Money - NPR", newsByUrl.getTitle());
-		Assertions.assertEquals("business", newsByUrl.getCategory());
-		Assertions.assertEquals("NPR", newsByUrl.getSource());
-	}
-
-
-	@Test
-	void tetGetAllNews() {
-
-		// List<NewsArticle> allNews = newsService.getAllNews();
-		//
-		// for (NewsArticle newsArticle : allNews) {
-		// 	System.out.println(newsArticle.getTitle());
-		// }
-		// debugService.printOneContent();
-		debugService.checkQuizFields();
+		assertEquals("Microsoft employee protests lead to 18 arrests as company reviews its work with Israel's military - AP News", newsByUrl.getTitle());
+		assertEquals("business", newsByUrl.getCategory());
+		assertEquals("Associated Press", newsByUrl.getSource());
 	}
 
 	@Test
-	void testGetNewsByPublishedAt() {
+	void testGetAllNewsByDate() {
 
-		String publishedAt = "2025-08-15";
+		Instant startOfDay = LocalDate.parse("2025-08-20").atStartOfDay(ZoneOffset.UTC).toInstant();
+		Instant endOfDay = LocalDate.parse("2025-08-21").atStartOfDay(ZoneOffset.UTC).toInstant();
 
-		List<NewsArticle> newsList = newsService.getNewsByPublishedAt(publishedAt);
+		List<NewsArticle> newsList = newsService.getAllNewsByDate(Date.from(startOfDay), Date.from(endOfDay));
 
-		System.out.println(newsList.size());
-
-		for (NewsArticle news: newsList) {
-			System.out.println(news.getTitle());
-		}
+		assertFalse(newsList.isEmpty());
 
 	}
 

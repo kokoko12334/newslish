@@ -1,5 +1,9 @@
 package com.kmp.newslish.service;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,14 +24,24 @@ public class NewsService {
 			.orElseThrow(() -> new NullPointerException("뉴스를 찾을 수 없습니다: " + url));
 	}
 
-
-
-	public List<NewsArticle> getNewsByPublishedAt(String publishedAt) {
-		return newsRepository.findByPublishedAtStartingWith(publishedAt);
-	}
-
 	public List<NewsArticle> getAllNews() {
 		return newsRepository.findAll();
 	}
+
+	public List<NewsArticle> getAllNewsByDate(Date startDate, Date endDate) {
+		return newsRepository.findByPublishedAtBetween(startDate, endDate);
+	}
+
+	public List<NewsArticle> getAllNewsByDate(String startDate, String endDate) {
+
+		Instant startOfDay = LocalDate.parse(startDate).atStartOfDay(ZoneOffset.UTC).toInstant();
+		Instant endOfDay = LocalDate.parse(endDate).atStartOfDay(ZoneOffset.UTC).toInstant();
+
+		return getAllNewsByDate(Date.from(startOfDay), Date.from(endOfDay));
+	}
+
+
+
+
 
 }
