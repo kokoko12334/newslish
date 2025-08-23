@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.kmp.newslish.config.MapperConfig;
@@ -68,10 +67,8 @@ public class NewsService {
 	}
 
 	public NewsListDTO getRecommendedNews() {
-		return mapper.toNewsListElement(newsRepository.findFirstBy());
+		List<NewsArticle> randomNews = newsRepository.findRandomNews(PageRequest.of(0, 10));
+		return mapper.toNewsListElement(randomNews.get(0));
 	}
-
-
-
 
 }

@@ -14,4 +14,6 @@ public interface NewsRepository extends MongoRepository<NewsArticle, String> {
 	List<NewsArticle> findByPublishedAtBetween(Date startDate, Date endDate);
 	Page<NewsArticle> findByPublishedAtBetween(Date publishedAt, Date publ, Pageable pageable);
 	NewsArticle findFirstBy();
+	@Query("{}")
+	List<NewsArticle> findRandomNews(Pageable pageable);
 }

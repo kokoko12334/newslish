@@ -8,7 +8,6 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.springframework.data.domain.Page;
 
 import com.kmp.newslish.dto.NewsDetailDTO;
 import com.kmp.newslish.dto.NewsListDTO;
