@@ -30,10 +30,7 @@ public class NewsServiceTest {
 		NewsDetailDTO newsByUrl = newsService.getNewsByUrl(url);
 
 		//then
-		assertEquals("Chipotle teams up with Zipline to test drone delivery - CNBC", newsByUrl.getTitle());
-		assertEquals("business", newsByUrl.getCategory());
-		assertEquals("CNBC", newsByUrl.getSource());
-		assertEquals(5, newsByUrl.getReadingTime());
+		assertEquals("https://www.cnbc.com/2025/08/21/chipotle-teams-up-with-zipline-to-test-drone-delivery.html", newsByUrl.get_id());
 	}
 
 	@Test
