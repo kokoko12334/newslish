@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Quiz {
 	private List<TrueFalseQuiz> trueFalse = new ArrayList<>();
 	private List<MultipleChoiceQuiz> multipleChoice = new ArrayList<>();
@@ -20,7 +19,6 @@ public class Quiz {
 
 	@Data
 	@NoArgsConstructor
-	@AllArgsConstructor
 	public static class TrueFalseQuiz {
 		private String question;
 		private String answer;
@@ -30,7 +28,6 @@ public class Quiz {
 
 	@Data
 	@NoArgsConstructor
-	@AllArgsConstructor
 	public static class MultipleChoiceQuiz {
 		private String question;
 		private Map<String, String> options;
@@ -41,7 +38,6 @@ public class Quiz {
 
 	@Data
 	@NoArgsConstructor
-	@AllArgsConstructor
 	public static class MainIdeaQuiz {
 		private String question;
 		private Map<String, String> options;
@@ -52,7 +48,6 @@ public class Quiz {
 
 	@Data
 	@NoArgsConstructor
-	@AllArgsConstructor
 	public static class InferenceQuiz {
 		private String question;
 		private Map<String, String> options;

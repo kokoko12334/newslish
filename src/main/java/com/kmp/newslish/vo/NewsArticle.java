@@ -1,21 +1,18 @@
 package com.kmp.newslish.vo;
 
-import java.util.ArrayList;
+import java.time.Instant;
 import java.util.List;
 
-import org.hibernate.annotations.FetchProfile;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Document(collection = "contents")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class NewsArticle {
 	@Id
 	private String _id;
@@ -23,7 +20,7 @@ public class NewsArticle {
 	@Field("voca")
 	private List<Voca> voca;
 
-	@Field("reading_time")
+	@Field("readingTime")
 	private int readingTime;
 
 	@Field("translations")
@@ -36,9 +33,9 @@ public class NewsArticle {
 	private int level;
 
 	@Field("publishedAt")
-	private String publishedAt;
+	private Instant publishedAt;
 
-	@Field("short_content")
+	@Field("shortContent")
 	private String shortContent;
 
 	@Field("source")
