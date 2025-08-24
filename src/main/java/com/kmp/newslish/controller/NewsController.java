@@ -39,9 +39,10 @@ public class NewsController {
 	@GetMapping("/by-date/page")
 	public ResponseEntity<NewsPageDTO> getNewsByDateWithPage(
 		@RequestParam("startDate") @NotBlank String startDate, @RequestParam("endDate") @NotBlank String endDate,
+		@RequestParam("category") String category,
 		@RequestParam(value = "page", defaultValue = "0") @Min(0) int page,
 		@RequestParam(value = "size", defaultValue = "10") @Min(1) @Max(30) int size) {
-		return ResponseEntity.ok(newsService.getNewsByDateWithPage(startDate, endDate, page, size));
+		return ResponseEntity.ok(newsService.getNewsByDateWithPage(startDate, endDate, category, page, size));
 	}
 
 	@GetMapping("/recommend")

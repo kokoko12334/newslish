@@ -46,9 +46,13 @@ public class NewsService {
 		return getAllNewsByDate(Date.from(startOfDay), Date.from(endOfDay));
 	}
 
-	public NewsPageDTO getNewsByDateWithPage(Date startDate, Date endDate, int page, int size) {
-		Page<NewsArticle> results = newsRepository.findByPublishedAtBetween(startDate, endDate,
-			PageRequest.of(page, size));
+	public NewsPageDTO getNewsByDateWithPage(Date startDate, Date endDate, String category, int page, int size) {
+		Page<NewsArticle> results;
+		if (category == null || category.isBlank() || category.equals("all")) {
+			results = newsRepository.findByPublishedAtBetween(startDate, endDate, PageRequest.of(page, size));
+		}else {
+			results = newsRepository.findByDatePublishedAtBetweenWithCategory(startDate, endDate, category, PageRequest.of(page, size));
+		}
 
 		return NewsPageDTO.builder()
 			.newsList(mapper.toNewsListDTO(results.getContent()))
@@ -56,15 +60,19 @@ public class NewsService {
 			.totalPages(results.getTotalPages())
 			.totalElements(results.getTotalElements())
 			.build();
+
 	}
 
-	public NewsPageDTO getNewsByDateWithPage(String startDate, String endDate, int page, int size) {
+	public NewsPageDTO getNewsByDateWithPage(String startDate, String endDate, String category, int page, int size) {
 
 		Instant startOfDay = LocalDate.parse(startDate).atStartOfDay(ZoneOffset.UTC).toInstant();
 		Instant endOfDay = LocalDate.parse(endDate).atStartOfDay(ZoneOffset.UTC).toInstant();
 
-		return getNewsByDateWithPage(Date.from(startOfDay), Date.from(endOfDay), page, size);
+		return getNewsByDateWithPage(Date.from(startOfDay), Date.from(endOfDay), category, page, size);
 	}
+
+
+
 
 	public NewsListDTO getRecommendedNews() {
 		List<NewsArticle> randomNews = newsRepository.findRandomNews(PageRequest.of(0, 10));
