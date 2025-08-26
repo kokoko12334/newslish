@@ -50,8 +50,9 @@ public class NewsService {
 		Page<NewsArticle> results;
 		if (category == null || category.isBlank() || category.equals("all")) {
 			results = newsRepository.findByPublishedAtBetween(startDate, endDate, PageRequest.of(page, size));
-		}else {
-			results = newsRepository.findByDatePublishedAtBetweenWithCategory(startDate, endDate, category, PageRequest.of(page, size));
+		} else {
+			results = newsRepository.findByDatePublishedAtBetweenWithCategory(startDate, endDate, category,
+				PageRequest.of(page, size));
 		}
 
 		return NewsPageDTO.builder()
@@ -71,11 +72,10 @@ public class NewsService {
 		return getNewsByDateWithPage(Date.from(startOfDay), Date.from(endOfDay), category, page, size);
 	}
 
-
-
-
 	public NewsListDTO getRecommendedNews() {
-		List<NewsArticle> randomNews = newsRepository.findRandomNews(PageRequest.of(0, 10));
+
+		List<NewsArticle> randomNews = newsRepository.findRandomNews();
+
 		return mapper.toNewsListElement(randomNews.get(0));
 	}
 

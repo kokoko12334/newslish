@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -14,8 +15,8 @@ public interface NewsRepository extends MongoRepository<NewsArticle, String> {
 	List<NewsArticle> findByPublishedAtBetween(Date startDate, Date endDate);
 	Page<NewsArticle> findByPublishedAtBetween(Date publishedAt, Date publ, Pageable pageable);
 	NewsArticle findFirstBy();
-	@Query("{}")
-	List<NewsArticle> findRandomNews(Pageable pageable);
+	@Aggregation(pipeline = { "{ $sample:  {size:  1}}"})
+	List<NewsArticle> findRandomNews();
 
 	@Query("{ 'publishedAt': { $gte: ?0, $lte: ?1 }, 'category': ?2 }")
 	Page<NewsArticle> findByDatePublishedAtBetweenWithCategory(
