@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import jakarta.persistence.Id;
+// import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +15,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class NewsArticle {
-	@Id
+	// @Id
+	@MongoId
 	private String _id;
 
 	@Field("voca")
